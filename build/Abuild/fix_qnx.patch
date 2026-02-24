@@ -1,0 +1,11 @@
+--- nasm-2.16.03.orig/nasmlib/path.c	2025-09-23 18:45:26.000000000 +0000
++++ nasm-2.16.03/nasmlib/path.c	2025-09-23 18:45:04.000000000 +0000
+@@ -53,7 +53,7 @@
+ # define curdir "."
+ #elif defined(unix) || defined(__unix) || defined(__unix__) ||   \
+     defined(__UNIX__) || defined(__Unix__) || \
+-    defined(__MACH__) || defined(__BEOS__)
++    defined(__MACH__) || defined(__BEOS__) || defined(__QNX__)
+ /* Unix and Unix-like operating systems and others using
+  * the equivalent syntax (slashes as only separators, no concept of volume)
+  *

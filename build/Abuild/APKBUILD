@@ -1,0 +1,38 @@
+# Alpine-Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+# Maintainer: Aaron Bassett <abassett@qnx.com>
+pkgname=nasm
+pkgver=2.16.03
+pkgrel=1
+pkgdesc="80x86 assembler designed for portability and modularity"
+url="https://www.nasm.us"
+arch="all"
+license="BSD-2-Clause"
+checkdepends="perl"
+subpackages="$pkgname-doc"
+
+source="https://www.nasm.us/pub/nasm/releasebuilds/$pkgver/nasm-$pkgver.tar.xz
+        fix_qnx.patch
+"
+
+build() {
+	CFLAGS="$CFLAGS -O2" \
+	./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr
+	make
+}
+
+check() {
+	make -j1 -C test golden test diff
+}
+
+package() {
+	make DESTDIR="$pkgdir" install
+}
+
+
+sha512sums="
+0c706e41a9c33e1ac3bad5056e8bf8cbcd51785b551a6e34ce7d0d723df8eaab8603a033e89b3dcda1004b558f9e9ef3196691500f10d8201bf47a323a516f84  nasm-2.16.03.tar.xz
+3c70ec7dc0ff5dfe048dd5001a1a65a4a5920dd23973ab67552f02b42f8290d25ac7d8cb239b79f6c3c41bb37129f5d30f0d0b555ac720a3dc02831ee517fdab  fix_qnx.patch
+"
